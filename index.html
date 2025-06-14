@@ -112,6 +112,22 @@
             }
         }
 
+        .center-heart-svg {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 2;
+            pointer-events: none;
+        }
+        .bottom-heart-svg {
+            position: fixed;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            z-index: 10;
+            pointer-events: none;
+        }
         .center-message-wrapper {
             position: fixed;
             left: 50%;
@@ -122,20 +138,6 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
-        }
-        .center-heart-behind {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 2;
-            pointer-events: none;
-        }
-        .center-heart-behind .heart {
-            width: 120px;
-            height: 120px;
-            background: #ff69b4;
-            opacity: 0.4;
         }
         .center-message {
             position: relative;
@@ -151,51 +153,22 @@
             position: relative;
             z-index: 3;
         }
-        .bottom-heart {
-            position: fixed;
-            left: 50%;
-            bottom: 40px;
-            transform: translateX(-50%);
-            z-index: 10;
-        }
-        .heart-fs {
-            width: 64px;
-            height: 64px;
-            background: #ff69b4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            color: white;
-            font-weight: bold;
-            position: relative;
-        }
-        .heart-fs:before,
-        .heart-fs:after {
-            width: 64px;
-            height: 64px;
-            background: #ff69b4;
-        }
-        .fs-text {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-        }
     </style>
 </head>
 <body>
     <div class="center-message-wrapper">
-        <div class="center-heart-behind">
-            <div class="heart"></div>
+        <div class="center-heart-svg">
+            <svg viewBox="0 0 100 90" width="110" height="100">
+                <path d="M10,30 A20,20 0 0,1 50,30 A20,20 0 0,1 90,30 Q90,60 50,85 Q10,60 10,30 Z" fill="#ff69b4" opacity="0.4"/>
+            </svg>
         </div>
         <div class="center-message" id="center-message"></div>
     </div>
-    <div class="bottom-heart">
-        <div class="heart heart-fs">
-            <span class="fs-text">F & Ş</span>
-        </div>
+    <div class="bottom-heart-svg">
+        <svg viewBox="0 0 100 90" width="80" height="70">
+            <path d="M10,30 A20,20 0 0,1 50,30 A20,20 0 0,1 90,30 Q90,60 50,85 Q10,60 10,30 Z" fill="#ff69b4"/>
+            <text x="50" y="55" text-anchor="middle" fill="white" font-size="22" font-family="Arial" font-weight="bold" alignment-baseline="middle">F & Ş</text>
+        </svg>
     </div>
 
     <script>
