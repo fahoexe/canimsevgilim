@@ -120,7 +120,7 @@
         const messages = [
             "Kalbimin Tek Sahibine...",
             "Seni Çok Seviyorum...",
-            "Canım Sevgilim",
+            "Canım Sevgilim"
         ];
 
         let currentMessageIndex = 0;
@@ -185,6 +185,14 @@
                 );
             }, i * 300);
         }
+
+        // Sürekli kalp oluştur
+        setInterval(() => {
+            createHeart(
+                Math.random() * window.innerWidth,
+                Math.random() * window.innerHeight
+            );
+        }, 800);
     </script>
 </body>
 </html> 
