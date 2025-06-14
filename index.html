@@ -112,41 +112,68 @@
             }
         }
 
-        .center-heart {
+        .center-message-wrapper {
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .center-heart-behind {
             position: absolute;
             left: 50%;
             top: 50%;
-            transform: translate(-50%, -120px); /* Mesajın biraz üstünde */
+            transform: translate(-50%, -50%);
             z-index: 2;
+            pointer-events: none;
         }
-        .center-heart .heart {
-            width: 40px;
-            height: 40px;
+        .center-heart-behind .heart {
+            width: 120px;
+            height: 120px;
             background: #ff69b4;
+            opacity: 0.4;
+        }
+        .center-message {
+            position: relative;
+            z-index: 3;
+            color: white;
+            font-size: 28px;
+            text-align: center;
+            padding: 20px 40px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            font-family: inherit;
+        }
+        .container .message {
+            position: relative;
+            z-index: 3;
         }
         .bottom-heart {
             position: fixed;
             left: 50%;
             bottom: 40px;
             transform: translateX(-50%);
-            z-index: 3;
+            z-index: 10;
         }
         .heart-fs {
-            width: 48px;
-            height: 48px;
+            width: 64px;
+            height: 64px;
             background: #ff69b4;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 22px;
             color: white;
             font-weight: bold;
             position: relative;
         }
         .heart-fs:before,
         .heart-fs:after {
-            width: 48px;
-            height: 48px;
+            width: 64px;
+            height: 64px;
             background: #ff69b4;
         }
         .fs-text {
@@ -159,10 +186,11 @@
     </style>
 </head>
 <body>
-    <div class="container" id="container">
-        <div class="center-heart">
+    <div class="center-message-wrapper">
+        <div class="center-heart-behind">
             <div class="heart"></div>
         </div>
+        <div class="center-message" id="center-message"></div>
     </div>
     <div class="bottom-heart">
         <div class="heart heart-fs">
@@ -176,9 +204,23 @@
             "Seni Çok Seviyorum...",
             "Canım Sevgilim"
         ];
-
         let currentMessageIndex = 0;
-        const container = document.getElementById('container');
+        const centerMessage = document.getElementById('center-message');
+        function showCenterMessage() {
+            if (currentMessageIndex >= messages.length) {
+                currentMessageIndex = 0;
+            }
+            centerMessage.textContent = messages[currentMessageIndex];
+            centerMessage.style.animation = 'fadeIn 0.5s forwards';
+            setTimeout(() => {
+                centerMessage.style.animation = 'fadeOut 0.5s forwards';
+                setTimeout(() => {
+                    currentMessageIndex++;
+                    showCenterMessage();
+                }, 500);
+            }, 2000);
+        }
+        showCenterMessage();
 
         function createHeart(x, y) {
             const heart = document.createElement('div');
@@ -190,28 +232,6 @@
             setTimeout(() => {
                 heart.remove();
             }, 3000);
-        }
-
-        function showMessage() {
-            if (currentMessageIndex >= messages.length) {
-                currentMessageIndex = 0;
-            }
-
-            const message = document.createElement('div');
-            message.className = 'message';
-            message.textContent = messages[currentMessageIndex];
-            container.innerHTML = '';
-            container.appendChild(message);
-
-            message.style.animation = 'fadeIn 0.5s forwards';
-
-            setTimeout(() => {
-                message.style.animation = 'fadeOut 0.5s forwards';
-                setTimeout(() => {
-                    currentMessageIndex++;
-                    showMessage();
-                }, 500);
-            }, 2000);
         }
 
         function handleTouch(e) {
@@ -226,9 +246,6 @@
 
         document.addEventListener('touchstart', handleTouch, { passive: false });
         document.addEventListener('click', handleClick);
-
-        // Start the message cycle
-        showMessage();
 
         // Create initial hearts
         for (let i = 0; i < 5; i++) {
