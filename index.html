@@ -186,13 +186,15 @@
             }, i * 300);
         }
 
-        // Sürekli kalp oluştur
+        // Sürekli daha fazla kalp oluştur
         setInterval(() => {
-            createHeart(
-                Math.random() * window.innerWidth,
-                Math.random() * window.innerHeight
-            );
-        }, 800);
+            for (let i = 0; i < 4; i++) { // Her seferinde 4 kalp birden
+                createHeart(
+                    Math.random() * window.innerWidth,
+                    Math.random() * window.innerHeight
+                );
+            }
+        }, 400); // 0.4 saniyede bir
     </script>
 </body>
 </html> 
